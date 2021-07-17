@@ -1,0 +1,44 @@
+*{
+  margin: 0;
+  padding: 0;
+  border: none;
+  text-decoration: none;
+}
+body{
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: bold;
+}
+h2{
+  color: #fff;
+  font-size: 36px;
+  line-height: 36px;
+  mix-blend-mode: difference;
+  display: inline-block;
+  position: absolute;
+}
+#foldername{
+  top: 2.5%;
+  left: 2.5%;
+}
+#path{
+  bottom: 2.5%;
+  left: 2.5%;
+}
+#copy-link img{
+  vertical-align: bottom;
+  cursor: pointer;
+}
+#count{
+  bottom: 2.5%;
+  right: 2.5%;
+}
+#bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-size: contain;
+  background-position: center;
+}

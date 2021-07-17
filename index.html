@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>simple photo viewer</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="ui">
+        <h2 id="foldername">{{ foldername }}</h2>
+        <h2 id="path">{{ path }} <a id="copy-link"><img src="./icons/link_white_36dp.svg" alt="copy link"></a></h2>
+        <h2 id="count"><- {{ count }}/{{ maxcount }} -></h2>
+        <h2>{{imglist}}</h2>
+      </div>
+      <div id="bg" :style="{backgroundImage: 'url(./img/'+imageURL+')'}"></div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+<!--
+Ich lebe mein Leben und du lebst dein Leben.
+
+Ich bin nicht auf dieser Welt, um deinen Erwartungen zu entsprechen –
+
+und du bist nicht auf dieser Welt, um meinen Erwartungen zu entsprechen.
+
+ICH BIN ich und DU BIST du –
+
+und wenn wir uns zufallig treffen und finden, dann ist das schön,
+
+wenn nicht, dann ist auch das gut so.
+-->
+</html>
