@@ -20,6 +20,10 @@ h2{
   top: 2.5%;
   left: 2.5%;
 }
+#changefolder{
+  top: 2.5%;
+  right: 2.5%;
+}
 #path{
   bottom: 2.5%;
   left: 2.5%;
@@ -41,4 +45,7 @@ h2{
   z-index: -1;
   background-size: contain;
   background-position: center;
+}
+a{
+  cursor: pointer;
 }

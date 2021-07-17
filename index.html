@@ -7,15 +7,15 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>simple photo viewer</title>
   </head>
-  <body>
+  <body onload="app.changeImg(1,0)">
     <div id="app">
       <div id="ui">
         <h2 id="foldername">{{ foldername }}</h2>
+        <h2 id="changefolder"><a onclick="app.nextFolder(-1)">↑</a> <a onclick="app.nextFolder(1)">↓</a></h2>
         <h2 id="path">{{ path }} <a id="copy-link"><img src="./icons/link_white_36dp.svg" alt="copy link"></a></h2>
-        <h2 id="count"><- {{ count }}/{{ maxcount }} -></h2>
-        <h2>{{imglist}}</h2>
+        <h2 id="count"><a onclick="app.nextPhoto(-1)"><-</a> {{ count }}/{{ maxcount }} <a onclick="app.nextPhoto(1)">-></a> </h2>
       </div>
-      <div id="bg" :style="{backgroundImage: 'url(./img/'+imageURL+')'}"></div>
+      <div id="bg" onclick="app.nextPhoto(1)" :style="{backgroundImage: 'url(./img/'+imageURL+')'}"></div>
     </div>
 
     <script src="./script.js"></script>
