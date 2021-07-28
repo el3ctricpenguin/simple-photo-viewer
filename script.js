@@ -2,13 +2,15 @@ var app = new Vue({
   el:'#app',
   data:{
 
-    foldername: "2021.07.08 Night Walking #2",
-    f:0,
-    foldermaxCount:3,
+    foldername: "----.--.--",
+    f:0,//フォルダ何個目か
+    foldermaxCount:1,//全部でフォルダ何個
     path: "/photo?",
-    count: 1, //何分の何と表示される
-    maxcount:13,
-    imageURL:"2021.07.08_Night_Walking_%232/IMG_2910.jpg"
+    p:0,//写真が何枚目か count:p+1
+    count: 1,//何分の何と表示される
+    maxcount:13,//フォルダ内の写真数
+    imageURL:"loading.jpg",
+    imglist:[]
   },
   created: function(){
     //jsonから画像リスト読み込み
@@ -20,45 +22,37 @@ var app = new Vue({
   methods:{
     changeImg: function(f,p){
       //fは何フォルダ目か、pは何枚目か
-      this.foldername=this.imglist['data'][f][0]
-
-      this.f=f //この辺なんとかしよう
-      this.foldermaxCount=this.imglist['data'].length //本来はここではない、初期化のところ
-
-      this.imageURL=encodeURIComponent(this.imglist['data'][f][0]+'/'+this.imglist['data'][f][1][p])
-      this.path='/photo?'+'folder='+f+'&photo='+p
-      this.count=p+1; //今何枚目？
-      this.maxcount=this.imglist['data'][f][1].length //何枚中？
+      this.f=f
+      this.p=p
+      this.foldername=this.imglist['data'][this.f][0]
+      this.foldermaxCount=this.imglist['data'].length //フォルダが全部で何個あるか
+      bottomUI();
     },
     nextFolder: function(i){
       this.f+=i
       if (this.f<0) {
-        this.f=this.foldermaxCount
-      }else if (this.f>=this.foldermaxCount) {
+        this.f=this.foldermaxCount-1//この辺見直してあとで(7/18)->直さなくていいような(7/28)
+      }else if (this.f>this.foldermaxCount-1) {
         this.f=0
       }
-
       this.foldername=this.imglist['data'][this.f][0]
-      this.maxcount=this.imglist['data'][this.f][1].length //何枚中？フォルダが変わるので
       this.p=0
-      this.count=1
-      p=this.p
-
-      this.imageURL=encodeURIComponent(this.imglist['data'][this.f][0]+'/'+this.imglist['data'][this.f][1][p])
-      this.path='/photo?'+'folder='+this.f+'&photo='+p
-
-
+      bottomUI();
     },
     nextPhoto: function(i){
-      this.count+=i
-      if (this.count<1) {
-        this.count=this.maxcount
-      }else if (this.count>this.maxcount) {
-        this.count=1
+      this.p+=i
+      if (this.p<0) {
+        this.p=this.maxcount-1
+      }else if (this.p>this.maxcount-1) {
+        this.p=0
       }
-      p=this.count-1
-      this.imageURL=encodeURIComponent(this.imglist['data'][this.f][0]+'/'+this.imglist['data'][this.f][1][p])
-      this.path='/photo?'+'folder='+this.f+'&photo='+p
+      bottomUI()
+    },
+    bottomUI: function(){//下部分のUI更新+画像切り替え
+      this.count=this.p+1 //今何枚目？
+      this.maxcount=this.imglist['data'][this.f][1].length //何枚中？
+      this.imageURL=encodeURIComponent(this.foldername+'/'+this.imglist['data'][this.f][1][this.p])
+      this.path='/photo?'+'folder='+this.f+'&photo='+this.p
     }
   }
 })
