@@ -3,11 +3,12 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.png">
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>simple photo viewer</title>
   </head>
-  <body onload="app.changeImg(1,0)">
+  <body onload="app.changeImg(2,0)">
     <div id="app">
       <div id="ui">
         <h2 id="foldername">{{ foldername }}</h2>
@@ -15,7 +16,8 @@
         <h2 id="path">{{ path }} <a id="copy-link"><img src="./icons/link_white_36dp.svg" alt="copy link"></a></h2>
         <h2 id="count"><a onclick="app.nextPhoto(-1)"><-</a> {{ count }}/{{ maxcount }} <a onclick="app.nextPhoto(1)">-></a> </h2>
       </div>
-      <div id="bg" onclick="app.nextPhoto(1)" :style="{backgroundImage: 'url(./img/'+imageURL+')'}"></div>
+      <div class="bg" onclick="app.nextPhoto(1)" :style="{backgroundImage: 'url(./img/'+imageURL+')'}"></div>
+      <div class="bg" style="backgroundImage: url(./img/loading.jpg);z-index: -2!important;"></div>
     </div>
 
     <script src="./script.js"></script>
@@ -33,4 +35,5 @@ und wenn wir uns zufallig treffen und finden, dann ist das schön,
 
 wenn nicht, dann ist auch das gut so.
 -->
+<!-- since 17.7.2021 -->
 </html>

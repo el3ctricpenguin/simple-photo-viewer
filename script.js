@@ -10,7 +10,8 @@ var app = new Vue({
     count: 1,//何分の何と表示される
     maxcount:13,//フォルダ内の写真数
     imageURL:"loading.jpg",
-    imglist:[]
+    imglist:[],
+    img:[]//IMG入れ
   },
   created: function(){
     //jsonから画像リスト読み込み
@@ -26,7 +27,8 @@ var app = new Vue({
       this.p=p
       this.foldername=this.imglist['data'][this.f][0]
       this.foldermaxCount=this.imglist['data'].length //フォルダが全部で何個あるか
-      bottomUI();
+      this.bottomUI()
+      this.preloadImg()
     },
     nextFolder: function(i){
       this.f+=i
@@ -37,7 +39,8 @@ var app = new Vue({
       }
       this.foldername=this.imglist['data'][this.f][0]
       this.p=0
-      bottomUI();
+      this.bottomUI()
+      this.preloadImg()
     },
     nextPhoto: function(i){
       this.p+=i
@@ -46,13 +49,28 @@ var app = new Vue({
       }else if (this.p>this.maxcount-1) {
         this.p=0
       }
-      bottomUI()
+      this.bottomUI()
     },
     bottomUI: function(){//下部分のUI更新+画像切り替え
       this.count=this.p+1 //今何枚目？
       this.maxcount=this.imglist['data'][this.f][1].length //何枚中？
       this.imageURL=encodeURIComponent(this.foldername+'/'+this.imglist['data'][this.f][1][this.p])
       this.path='/photo?'+'folder='+this.f+'&photo='+this.p
+    },
+    preloadImg: function(){
+      imgs=[]
+      //imgs.push(this.imglist['data'][this.f][1])
+      //imgs.push(this.imglisa in rmaxCount-1)][1][0],this.imglist['data'][(this.f-1)%(this.foldermaxCount-1)][1][0])
+      for (i in this.imglist['data'][this.f][1]) {
+        imgs.push('./img/'+encodeURIComponent(this.foldername+'/'+this.imglist['data'][this.f][1][i]))
+      }
+      imgs.push('./img/'+encodeURIComponent(this.imglist['data'][(this.f+1)%(this.foldermaxCount)][0]+'/'+this.imglist['data'][(this.f+1)%(this.foldermaxCount)][1][0]))
+      imgs.push('./img/'+encodeURIComponent(this.imglist['data'][(this.f-1+this.foldermaxCount)%(this.foldermaxCount)][0]+'/'+this.imglist['data'][(this.f-1+this.foldermaxCount)%(this.foldermaxCount)][1][0]))
+      for (i in imgs) {
+        this.img[i] = new Image()
+        this.img[i].src = imgs[i]
+        console.log(imgs[i])
+      }
     }
   }
 })
