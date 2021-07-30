@@ -71,6 +71,18 @@ var app = new Vue({
         this.img[i].src = imgs[i]
         console.log(imgs[i])
       }
+    },
+    keydown: function(e){
+      if (e.keyCode=="37") {
+        this.nextPhoto(-1)//←
+      }else if (e.keyCode=="39") {
+        this.nextPhoto(1)//→
+      }else if (e.keyCode=="38") {
+        app.nextFolder(-1)//↑
+      }else if (e.keyCode=="40") {
+        app.nextFolder(1)//↓
+      }
     }
   }
 })
+document.onkeydown=app.keydown;
